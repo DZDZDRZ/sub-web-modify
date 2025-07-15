@@ -14,7 +14,13 @@ module.exports = {
   },
 
   chainWebpack: config => {
-    // set svg-sprite-loader
+    // ✅ 禁用 favicon 注入
+    config.plugin('html').tap(args => {
+      args[0].favicon = false
+      return args
+    })
+
+    // ✅ 设置 svg-sprite-loader（原有逻辑保留）
     config.module
       .rule('svg')
       .exclude.add(resolve('src/icons'))
@@ -31,4 +37,4 @@ module.exports = {
       })
       .end()
   }
-};
+}
